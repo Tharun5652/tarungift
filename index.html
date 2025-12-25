@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merry Christmas, Keerthana!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- STYLES --- */
+        :root { --bg-color: #fffbf0; --accent-pink: #ff6b9d; --text-dark: #2d3436; }
+        body, html { margin: 0; padding: 0; height: 100%; font-family: 'Nunito', sans-serif; background-color: var(--bg-color); background-image: radial-gradient(#ffdec7 2px, transparent 2px), radial-gradient(#ffebf0 2px, transparent 2px); background-size: 40px 40px; color: var(--text-dark); overflow-x: hidden; }
+        #app-container { max-width: 450px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 20px; box-sizing: border-box; }
+        .screen { display: none; animation: fade-in 0.8s ease; }
+        #screen-1 { display: block; }
+        @keyframes fade-in { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        h1, h2 { text-align: center; }
+        .cursive-header { font-family: 'Dancing Script', cursive; color: var(--accent-pink); font-size: 1.8rem; margin-bottom: 5px; text-align: center; }
+        .main-title { font-weight: 800; font-size: 2.2rem; margin-top: 0; color: #1a1a2e; text-align: center; }
+        .btn-pink { background-color: var(--accent-pink); color: white; border: none; padding: 15px 30px; font-size: 1.1rem; font-weight: bold; border-radius: 50px; cursor: pointer; box-shadow: 0 5px 15px rgba(255, 107, 157, 0.4); display: block; margin: 30px auto 0; width: 80%; }
+        
+        /* Intro Card */
+        .intro-card { background: white; padding: 30px; border-radius: 25px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.05); position: relative; margin-top: 40px; }
+        
+        /* Tic Tac Toe */
+        .ttt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; background: white; padding: 25px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-top: 20px; }
+        .ttt-cell { background: #fffbf0; height: 80px; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 2rem; }
+        .center-cell { border: 3px dashed var(--accent-pink); cursor: pointer; transition: transform 0.1s; }
+        .center-cell:active { transform: scale(0.9); }
+
+        /* Envelope */
+        .envelope-container { display: flex; justify-content: center; margin: 40px 0; }
+        .envelope { width: 250px; height: 160px; background-color: #ffc2d1; border-radius: 10px; position: relative; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .envelope::after { content: 'Is for you ->'; font-family: 'Dancing Script'; font-size: 1.5rem; color: white; }
+        .heart-seal { width: 50px; height: 50px; background: var(--accent-pink); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; }
+
+        /* Note Card & Image */
+        .note-card { background: white; padding: 30px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); position: relative; margin-top: 30px; }
+        .note-tag { background: var(--accent-pink); color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; }
+        .note-text { font-family: 'Dancing Script', cursive; font-size: 1.6rem; line-height: 1.6; color: #555; margin-top: 30px; }
+        
+        /* UPDATED: Uses photo.jpg.jpeg */
+        .note-cat-image {
+            position: absolute;
+            top: -50px; right: 10px;
+            width: 120px; height: 120px;
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background-color: #eee;
+            background-size: cover;
+            background-position: center;
+            background-image: url('photo.jpg.jpeg'); 
+        }
+
+        /* Song Card */
+        .song-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.05); margin-bottom: 30px; margin-top: 20px; }
+        /* UPDATED: Uses photo.jpg.jpeg */
+        .meme-img { width: 100%; height: 250px; background-color: #ddd; background-size: cover; background-position: center; background-image: url('photo.jpg.jpeg'); }
+        .player-ui { padding: 15px; }
+        .fake-controls { display: flex; align-items: center; justify-content: space-between; color: #ccc; cursor: pointer; margin-top: 10px; }
+        .play-btn { font-size: 1.5rem; color: var(--accent-pink); }
+        .progress-bar { flex-grow: 1; height: 6px; background: #eee; margin: 0 15px; border-radius: 3px; }
+        .progress-fill { width: 30%; height: 100%; background: #d4a5a5; border-radius: 3px; }
+
+        /* Coupon */
+        .coupon { background: #fffce8; padding: 30px; border-radius: 10px; text-align: center; box-shadow: 3px 3px 10px rgba(0,0,0,0.05); margin-bottom: 30px; font-family: 'Dancing Script', cursive; font-size: 1.8rem; position: relative; border: 1px solid #f0edcc; }
+        .tape { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); width: 60px; height: 20px; background: rgba(255,255,255,0.6); border: 1px solid #eee; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+<audio id="bg-music" src="song.opus.ogg" loop></audio>
+
+<div id="app-container">
+
+    <div class="screen" id="screen-1">
+        <div class="cursive-header">a little christmas thought... 🎄</div>
+        <h1 class="main-title">Hey You</h1>
+        <div class="intro-card">
+            <p style="font-size: 1.2rem; line-height: 1.6; color: #666;">I wanted to do a tiny something this Christmas, because you mean a lot to me.</p>
+            <button class="btn-pink" onclick="nextScreen(2)">Open Your Gift ➝</button>
+        </div>
+    </div>
+
+    <div class="screen" id="screen-2">
+        <div class="cursive-header">A quick game first...</div>
+        <h1 class="main-title">Sweet Tic-Tac-Toe</h1>
+        <p class="cursive-header" style="font-size: 1.2rem; color: #888;" id="click-instruction">Tap the cookie 3 times! 🍪</p>
+        <div class="ttt-grid">
+            <div class="ttt-cell">🍫</div> <div class="ttt-cell">🍬</div> <div class="ttt-cell">🍭</div>
+            <div class="ttt-cell">🍩</div> 
+            <div class="ttt-cell center-cell" id="cookie-cell" onclick="handleCookieClick()">🍪</div>
+            <div class="ttt-cell">🧁</div>
+            <div class="ttt-cell">🍫</div> <div class="ttt-cell">🍬</div> <div class="ttt-cell">🍭</div>
+        </div>
+    </div>
+
+    <div class="screen" id="screen-3">
+        <div class="cursive-header">Wrapped straight from my heart</div>
+        <h1 class="main-title">A Christmas Note 🎅💌</h1>
+        <div class="envelope-container">
+            <div class="envelope" onclick="nextScreen(4)">
+                <div class="heart-seal">❤️</div>
+            </div>
+        </div>
+        <p class="cursive-header">Tap to unwrap 🎁</p>
+    </div>
+
+    <div class="screen" id="screen-4">
+        <div class="cursive-header">Wrapped straight from my heart</div>
+        <h1 class="main-title">A Christmas Note 🎅💌</h1>
+        <div class="note-card">
+            <div class="note-cat-image"></div>
+            <span class="note-tag">MY SWEETEST LOVE</span>
+            <div class="note-text">
+                Hey Keerthana,<br><br>
+                Christmas feels warmer because of you.<br><br>
+                You bring comfort, light, and calm into my world.
+            </div>
+            <div class="cursive-header" style="text-align: right; margin-top: 30px;">Always yours</div>
+        </div>
+        <button class="btn-pink" onclick="nextScreen(5)">Continue ✨</button>
+    </div>
+
+    <div class="screen" id="screen-5">
+        <div class="cursive-header">Soft, warm & full of feeling</div>
+        <h1 class="main-title">Songs That Feel Like Christmas With You 🎶</h1>
+        <div class="song-card">
+            <div class="meme-img"></div>
+            <div class="player-ui">
+                <h3 style="color: #c05c4a; margin:0;">I Think They Call This Love</h3>
+                <p style="font-size: 0.8rem; color: #888;">ELLIOT JAMES REAY</p>
+                <div class="fake-controls" onclick="toggleMusic()">
+                    <span id="play-icon" class="play-btn">▶</span>
+                    <div class="progress-bar"><div class="progress-fill"></div></div>
+                </div>
+            </div>
+        </div>
+        <button class="btn-pink" onclick="nextScreen(6)">Next 🎄➝</button>
+    </div>
+
+    <div class="screen" id="screen-6">
+        <div class="coupon">
+            <div class="tape"></div>
+            You're cute even when you're annoyed 😅
+        </div>
+        <div class="coupon" style="background: #e8f4ff; border: 1px solid #dbeefc;">
+             <div class="tape"></div>
+             Christmas Coupon:<br>Unlimited hugs 🫂🌲
+        </div>
+        <button class="btn-pink" onclick="nextScreen(7)">Next ✨➝</button>
+    </div>
+
+    <div class="screen" id="screen-7">
+        <div class="cursive-header">the grand finale...</div>
+        <h1 class="main-title">One More Thing</h1>
+        <div class="note-card" style="background: #fffef8;">
+            <h3 class="cursive-header">Final Thoughts</h3>
+            <div class="note-text" style="font-size: 1.3rem; color: #444;">
+                <p style="color: var(--accent-pink);">Hey love,</p>
+                This Christmas, I just want you to know how much you mean to me.<br><br>
+                I hope this brought you a little comfort and a smile.
+            </div>
+             <p style="text-align: center; font-size: 0.7rem; color: #aaa; margin-top: 30px;">This is me, choosing you — this Christmas and always 🎄🤍</p>
+        </div>
+        <button class="btn-pink" onclick="location.reload()">From Tarunzz 💌</button>
+    </div>
+
+</div>
+
+<script>
+    let currentScreen = 1;
+    let clicks = 0;
+    const audio = document.getElementById('bg-music');
+
+    function nextScreen(n) {
+        document.getElementById(`screen-${currentScreen}`).style.display = 'none';
+        currentScreen = n;
+        document.getElementById(`screen-${currentScreen}`).style.display = 'block';
+        window.scrollTo(0, 0);
+    }
+
+    function handleCookieClick() {
+        clicks++;
+        const cell = document.getElementById('cookie-cell');
+        const instruction = document.getElementById('click-instruction');
+        
+        // Animation
+        cell.style.transform = 'scale(0.8)';
+        setTimeout(() => cell.style.transform = 'scale(1)', 100);
+        
+        if(clicks === 1) instruction.innerText = "2 more clicks... 🍪";
+        if(clicks === 2) instruction.innerText = "1 more click! 🍪";
+        
+        if (clicks >= 3) {
+            cell.innerText = "❤️";
+            setTimeout(() => {
+                nextScreen(3);
+            }, 500);
+        }
+    }
+
+    function toggleMusic() {
+        const btn = document.getElementById('play-icon');
+        if (audio.paused) {
+            audio.play().then(() => {
+                btn.innerText = "⏸";
+            }).catch(e => {
+                console.log(e);
+                alert("Please click anywhere on the page first (browser policy).");
+            });
+        } else {
+            audio.pause();
+            btn.innerText = "▶";
+        }
+    }
+</script>
+</body>
+</html>
